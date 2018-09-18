@@ -1,16 +1,21 @@
 <?php
 $packages = [
-    "A"  => [ "name" => "A",
+    "A" => ["name" => "A",
         "dependencies" => ["B", "C"]],
 
-    "B"  => [ "name" => "B",
+    "B" => ["name" => "B",
         "dependencies" => []],
 
-    "C"  => [ "name" => "C",
+    "C" => ["name" => "C",
         "dependencies" => ["B", "D"]],
 
-    "D"  => [ "name" => "D",
+    "D" => ["name" => "D",
         "dependencies" => []]
 ];
 
-print_r($packages) ;
+print_r($packages);
+
+function validatePackageDefinitions($packages):void{
+
+
+};
