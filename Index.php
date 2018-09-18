@@ -8,3 +8,4 @@
 echo "sfaf";
 echo "slow";
 echo "slow";
+echo "slows";
