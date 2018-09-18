@@ -1,11 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Макс
- * Date: 18.09.2018
- * Time: 22:43
- */
-echo "sfaf";
-echo "slow";
-echo "slow";
-echo "slows";
+$packages = [
+    "A"  => [ "name" => "A",
+        "dependencies" => ["B", "C"]],
+
+    "B"  => [ "name" => "B",
+        "dependencies" => []],
+
+    "C"  => [ "name" => "C",
+        "dependencies" => ["B", "D"]],
+
+    "D"  => [ "name" => "D",
+        "dependencies" => []]
+];
+
+print_r($packages) ;
