@@ -29,7 +29,17 @@ function validatePackageDefinitions(array $packages):void{
         else{
             echo "false<br>";
         }
-    }
+
+        foreach ($v["dependencies"] as $i){
+            if($i=="A" or $i=="B" or $i=="C" or $i=="D" or empty($i)){
+                echo "true<br>";
+            }
+            else{
+                echo "false<br>";
+            }
+        }
+        }
+
 
 };
 validatePackageDefinitions($packages);
