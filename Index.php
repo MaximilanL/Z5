@@ -13,9 +13,24 @@ $packages = [
         "dependencies" => []]
 ];
 
-print_r($packages);
+function validatePackageDefinitions(array $packages):void{
 
-function validatePackageDefinitions($packages):void{
+    foreach ($packages as $k => $v) {
+        if($v["name"]===$k){
+            echo "true<br>";
+        }
+        else{
+            echo "false<br>";
+        }
 
+        if(isset($v["dependencies"])){
+            echo "true<br>";
+        }
+        else{
+            echo "false<br>";
+        }
+    }
 
 };
+validatePackageDefinitions($packages);
+
