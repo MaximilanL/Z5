@@ -26,6 +26,7 @@ function validatePackageDefinitions(array $packages): void
 
         } else {
             echo "Массив не соответсвует по 2 пункту: не существует элемент с ключем 'dependencies'<br>";
+            exit("");
         }
 
         foreach ($v["dependencies"] as $i) {
@@ -65,6 +66,6 @@ function getAllPackageDependencies(array $packages, string $packageName): array
 
 }
 
-getAllPackageDependencies($packages, "A");
-validatePackageDefinitions($packages);
 
+validatePackageDefinitions($packages);
+getAllPackageDependencies($packages, "A");
