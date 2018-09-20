@@ -15,7 +15,8 @@ $packages = [
 
 function validatePackageDefinitions(array $packages): void
 {
-
+    global $sv;
+    $sv = 0;
     foreach ($packages as $k => $v) {
         if ($v["name"] === $k) {
         } else {
@@ -23,7 +24,6 @@ function validatePackageDefinitions(array $packages): void
         }
 
         if (isset($v["dependencies"])) {
-
         } else {
             echo "Массив не соответсвует по 2 пункту: не существует элемент с ключем 'dependencies'<br>";
             exit("");
@@ -61,11 +61,10 @@ function getAllPackageDependencies(array $packages, string $packageName): array
     if (in_array($packageName, $result)) {
         echo "Массив не соответсвует по 4 пункту: Есть циклические зависимости<br>";
     }
-
     return $result;
-
 }
 
 
 validatePackageDefinitions($packages);
 getAllPackageDependencies($packages, "A");
+
