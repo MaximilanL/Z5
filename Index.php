@@ -10,30 +10,29 @@ $packages = [
         "dependencies" => ["B", "D"]],
 
     "D" => ["name" => "D",
-        "dependencies" => ["A"]]
+        "dependencies" => []]
 ];
 
 function validatePackageDefinitions(array $packages): void
 {
-
+    global $sootv;
+    $sootv=0;
     foreach ($packages as $k => $v) {
         if ($v["name"] === $k) {
-            echo "true<br>";
         } else {
-            echo "false<br>";
+            echo "Массив не соответсвует по 1 пункту: ключ массива не совпадает с именем указанным под ключем 'name'<br>";
         }
 
         if (isset($v["dependencies"])) {
-            echo "true<br>";
+
         } else {
-            echo "false<br>";
+            echo "Массив не соответсвует по 2 пункту: не существует элемент с ключем 'dependencies'<br>";
         }
 
         foreach ($v["dependencies"] as $i) {
             if ($i == "A" or $i == "B" or $i == "C" or $i == "D" or empty($i)) {
-                echo "true<br>";
             } else {
-                echo "false<br>";
+                echo "Массив не соответсвует по 3 пункту: в 'dependencies' указаны не только описанные зависимости<br>";
             }
         }
     }
@@ -54,18 +53,17 @@ function getAllPackageDependencies(array $packages, string $packageName): array
             $zav = array_merge($zav, $z["dependencies"]);
         }
 
-
     }
 
 
     $result = array_values(array_unique($zav));
-    print_r($result);
 
-
-    if (in_array($packageName, $result)){
-        echo 'Есть циклические зависимости';
+    if (in_array($packageName, $result)) {
+        echo "Массив не соответсвует по 4 пункту: Есть циклические зависимости<br>";
     }
+
     return $result;
+
 }
 
 getAllPackageDependencies($packages, "A");
