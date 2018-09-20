@@ -15,8 +15,7 @@ $packages = [
 
 function validatePackageDefinitions(array $packages): void
 {
-    global $sv;
-    $sv = 0;
+
     foreach ($packages as $k => $v) {
         if ($v["name"] === $k) {
         } else {
