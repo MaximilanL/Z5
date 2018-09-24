@@ -10,30 +10,34 @@ $packages = [
         "dependencies" => ["B", "D"]],
 
     "D" => ["name" => "D",
-        "dependencies" => []]
+        "dependencies" => ["A"]]
 ];
 
 function validatePackageDefinitions(array $packages): void
 {
 
-    foreach ($packages as $k => $v) {
-        if ($v["name"] === $k) {
+    foreach ($packages as $package => $packageCharacteristics){
+        if ($packageCharacteristics["name"] === $package) {
         } else {
-            echo "Массив не соответсвует по 1 пункту: ключ массива не совпадает с именем указанным под ключем 'name'<br>";
+            echo "The array does not match 1 point: the array key does not match the name specified under the 'name'<br>";
         }
 
-        if (isset($v["dependencies"])) {
+        if (isset($packageCharacteristics["dependencies"])){
         } else {
-            echo "Массив не соответсвует по 2 пункту: не существует элемент с ключем 'dependencies'<br>";
+            echo "The array does not correspond to 2 points: there is no element with the key 'dependencies'<br>";
             exit("");
         }
 
-        foreach ($v["dependencies"] as $i) {
-            if ($i == "A" or $i == "B" or $i == "C" or $i == "D" or empty($i)) {
+        foreach ($packageCharacteristics["dependencies"] as $i) {
+            if ($i === "A" or $i === "B" or $i === "C" or $i === "D" or empty($i)){
             } else {
-                echo "Массив не соответсвует по 3 пункту: в 'dependencies' указаны не только описанные зависимости<br>";
+                echo "The array does not correspond to 3 points: in 'dependencies' there are specified not only the described dependencies<br>";
             }
         }
+    }
+
+    if ($GLOBALS['cyclicalDependencies']===true){
+        echo "The array does not correspond to 4 points: There are cyclical dependencies<br>";
     }
 
 
@@ -41,29 +45,29 @@ function validatePackageDefinitions(array $packages): void
 
 function getAllPackageDependencies(array $packages, string $packageName): array
 {
-    $zav = [];
-    foreach ($packages as $x => $z) {
-        if ($x === $packageName) {
-            $zav += $z["dependencies"];
+    global $cyclicalDependencies;
+    $dependencies = [];
+    foreach ($packages as $package => $packageCharacteristics){
+        if ($package === $packageName){
+            $dependencies += $packageCharacteristics["dependencies"];
             continue;
         }
 
-        if (in_array($zav[0], $z["dependencies"]) or in_array($zav[1], $z["dependencies"]) or in_array($packageName, $z["dependencies"])) {
-            $zav = array_merge($zav, $z["dependencies"]);
+        if (in_array($dependencies[0], $packageCharacteristics["dependencies"]) or in_array($dependencies[1], $packageCharacteristics["dependencies"]) or in_array($packageName, $packageCharacteristics["dependencies"])){
+            $dependencies = array_merge($dependencies, $packageCharacteristics["dependencies"]);
         }
-
     }
 
 
-    $result = array_values(array_unique($zav));
+    $result = array_values(array_unique($dependencies));
 
-    if (in_array($packageName, $result)) {
-        echo "Массив не соответсвует по 4 пункту: Есть циклические зависимости<br>";
+    if (in_array($packageName, $result)){
+        $cyclicalDependencies=true;
     }
+
     return $result;
 }
 
 
-validatePackageDefinitions($packages);
 getAllPackageDependencies($packages, "A");
-
+validatePackageDefinitions($packages);
