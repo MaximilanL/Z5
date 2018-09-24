@@ -10,7 +10,7 @@ $packages = [
         "dependencies" => ["B", "D"]],
 
     "D" => ["name" => "D",
-        "dependencies" => ["A"]]
+        "dependencies" => []]
 ];
 
 function validatePackageDefinitions(array $packages): void
@@ -28,8 +28,8 @@ function validatePackageDefinitions(array $packages): void
             exit("");
         }
 
-        foreach ($packageCharacteristics["dependencies"] as $i) {
-            if ($i === "A" or $i === "B" or $i === "C" or $i === "D" or empty($i)){
+        foreach ($packageCharacteristics["dependencies"] as $dependence) {
+            if ($dependence === "A" or $dependence === "B" or $dependence === "C" or $dependence === "D" or empty($dependence)){
             } else {
                 echo "The array does not correspond to 3 points: in 'dependencies' there are specified not only the described dependencies<br>";
             }
@@ -57,7 +57,6 @@ function getAllPackageDependencies(array $packages, string $packageName): array
             $dependencies = array_merge($dependencies, $packageCharacteristics["dependencies"]);
         }
     }
-
 
     $result = array_values(array_unique($dependencies));
 
